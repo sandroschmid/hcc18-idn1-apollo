@@ -2,12 +2,14 @@ export class NavBarItem {
   public readonly path: string;
   public readonly label: string;
   public readonly title: string;
+  public readonly icon?: string;
 }
 
 export class NavBarItemBuilder {
   private _path: string;
   private _label: string;
   private _title: string;
+  private _icon: string;
 
   public path(path: string): this {
     this._path = path;
@@ -24,11 +26,17 @@ export class NavBarItemBuilder {
     return this;
   }
 
+  public icon(icon: string): this {
+    this._icon = icon;
+    return this;
+  }
+
   public build(): NavBarItem {
     return {
       path: this._path,
       label: this._label,
       title: this._title || this._label,
+      icon: this._icon,
     };
   }
 }

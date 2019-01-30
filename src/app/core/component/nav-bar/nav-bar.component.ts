@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { APP_NAME } from '../../model/constants';
-import { NavBarItem, NavBarItemBuilder } from '../../model/nav-bar-item';
+import { NAV_BAR_FAMILY, NAV_BAR_HEN_HOUSE, NAV_BAR_HOME, NAV_BAR_PANEL, NAV_BAR_STATS } from '../../model/constants';
+import { NavBarItem } from '../../model/nav-bar-item';
 import { StateService } from '../../service/state.service';
 
 @Component({
@@ -15,11 +15,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   public readonly view: { items: NavBarItem[] } = {
     items: [
-      new NavBarItemBuilder().path('/panel').label('Forum').build(),
-      new NavBarItemBuilder().path('/stats').label('Statistik').build(),
-      new NavBarItemBuilder().path('/home').label('Start').title(APP_NAME).build(),
-      new NavBarItemBuilder().path('/hen-house').label('Stall').build(),
-      new NavBarItemBuilder().path('/family').label('Familie').build(),
+      NAV_BAR_PANEL,
+      NAV_BAR_STATS,
+      NAV_BAR_HOME,
+      NAV_BAR_HEN_HOUSE,
+      NAV_BAR_FAMILY,
     ],
   };
 

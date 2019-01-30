@@ -1,3 +1,12 @@
-/deep/ nav .mat-tab-links {
-  justify-content: space-between;
+/deep/ nav {
+  .mat-tab-links {
+    justify-content: space-between;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
