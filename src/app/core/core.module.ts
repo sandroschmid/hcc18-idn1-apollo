@@ -5,6 +5,8 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { TitleBarComponent } from './component/title-bar/title-bar.component';
 import { CoreRoutingModule } from './core-routing.module';
+import { ChickenService } from './service/chicken.service';
+import { HenHouseService } from './service/hen-house.service';
 import { StateService } from './service/state.service';
 
 @NgModule({
@@ -20,6 +22,8 @@ import { StateService } from './service/state.service';
   ],
   providers: [
     StateService,
+    ChickenService,
+    HenHouseService,
   ],
   exports: [
     MainComponent,

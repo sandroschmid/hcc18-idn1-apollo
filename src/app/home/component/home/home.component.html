@@ -1,7 +1,53 @@
 <mat-card>
-  <mat-card-title>Test</mat-card-title>
-  <mat-card-content>Lorem ipsum</mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary">Test</button>
-  </mat-card-actions>
+  <mat-card-header>
+    <mat-icon mat-card-avatar>fastfood</mat-icon>
+    <mat-card-title>Eier</mat-card-title>
+  </mat-card-header>
+  <mat-card-content [ngSwitch]="view.eggsCount">
+    <span *ngSwitchCase="0">Heute wurden noch keine Eier gelegt.</span>
+    <span *ngSwitchCase="1">Heute wurde ein Ei gelegt.</span>
+    <span *ngSwitchDefault>Heute wurden {{ view.eggsCount }} Eier gelegt.</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-icon mat-card-avatar>speaker</mat-icon>
+    <mat-card-title>Stall</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <span>Die Stalltüre ist </span>
+      <span *ngIf="view.henHouse.isDoorOpen; else closedDoor">geöffnet</span>
+      <ng-template #closedDoor>
+        <span>geschlossen</span>
+      </ng-template>
+      <span>.</span>
+    </div>
+    <div>Die Temperatur beträgt {{ view.henHouse.temperatureInside }}°C.</div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-icon mat-card-avatar>pets</mat-icon>
+    <mat-card-title>Hühner in der Nähe</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <div class="img-slider">
+        <button mat-icon-button class="nav prev" (click)="imgPrev()">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <img *ngFor="let src of view.closeChickens; let i = index"
+             [src]="src" [alt]="'Huhn ' + (i+1)"
+             [ngClass]="'chicken' + (i+1)"
+             [class.mat-elevation-z2]="i != 1"
+             [class.mat-elevation-z8]="i == 1">
+        <button mat-icon-button class="nav next" (click)="imgNext()">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

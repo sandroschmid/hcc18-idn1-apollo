@@ -1,0 +1,68 @@
+@import "../../../../styles/variables";
+
+.mat-card:not(:last-child) {
+  margin-bottom: $gap-large;
+}
+
+.img-slider {
+  $img-slider-height: 150px;
+  $z-index-middle: 2;
+
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: $img-slider-height;
+  margin: $gap-large auto;
+
+  img {
+    position: absolute;
+    width: 100%;
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 5px;
+
+    &.chicken1,
+    &.chicken3 {
+      top: $img-slider-height * 0.125;
+      max-width: 30%;
+      height: $img-slider-height * 0.75;
+      z-index: $z-index-middle - 1;
+    }
+
+    &.chicken1 {
+      left: 0;
+    }
+
+    &.chicken2 {
+      top: 0;
+      left: 25%;
+      max-width: 50%;
+      height: $img-slider-height;
+      z-index: $z-index-middle;
+    }
+
+    &.chicken3 {
+      right: 0;
+    }
+  }
+
+  .nav {
+    position: absolute;
+    top: $img-slider-height * 0.48;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 33px;
+    background-color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    z-index: $z-index-middle + 1;
+
+    &.prev {
+      left: $gap-large;
+    }
+
+    &.next {
+      right: $gap-large;
+    }
+  }
+}
