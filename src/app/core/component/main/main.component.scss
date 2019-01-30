@@ -3,11 +3,28 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+}
 
-  main {
-    flex: 1;
-    padding: $gap-large;
-    background-color: rgba(0, 0, 0, 0.05);
+$toolbar-height: 56px;
+
+.fixed {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+
+  &.top {
+    height: $toolbar-height;
+    top: 0;
   }
+
+  &.bottom {
+    height: 48px;
+    bottom: 0;
+  }
+}
+
+main {
+  padding: $gap-large + $toolbar-height $gap-large;
 }

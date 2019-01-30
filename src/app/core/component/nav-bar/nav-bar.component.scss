@@ -1,4 +1,8 @@
+@import "../../../../styles/variables";
+
 /deep/ nav {
+  background-color: rgb(255, 255, 255);
+
   .mat-tab-links {
     justify-content: space-between;
   }
