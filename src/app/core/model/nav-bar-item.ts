@@ -1,15 +1,17 @@
+import { Icon } from './icon';
+
 export class NavBarItem {
   public readonly path: string;
   public readonly label: string;
   public readonly title: string;
-  public readonly icon?: string;
+  public readonly icon?: Icon;
 }
 
 export class NavBarItemBuilder {
   private _path: string;
   private _label: string;
   private _title: string;
-  private _icon: string;
+  private _icon: Icon;
 
   public path(path: string): this {
     this._path = path;
@@ -26,7 +28,7 @@ export class NavBarItemBuilder {
     return this;
   }
 
-  public icon(icon: string): this {
+  public icon(icon: Icon): this {
     this._icon = icon;
     return this;
   }

@@ -4,7 +4,7 @@
      [routerLink]="link.path"
      routerLinkActive="active-link" #rla="routerLinkActive"
      [active]="rla.isActive">
-    <mat-icon *ngIf="link.icon; else label">{{ link.icon }}</mat-icon>
+    <app-icon *ngIf="link.icon" [icon]="link.icon.name"></app-icon>
     <span>{{ link.label }}</span>
   </a>
 </nav>

@@ -1,7 +1,7 @@
 <mat-card class="margin-bottom">
   <mat-card-header>
-    <mat-icon mat-card-avatar>fastfood</mat-icon>
-    <mat-card-title>Eier</mat-card-title>
+    <app-icon mat-card-avatar *ngIf="view.navBarItem.icon" [icon]="view.navBarItem.icon.name"></app-icon>
+    <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
   </mat-card-header>
   <mat-card-content [ngSwitch]="view.eggsCount">
     <span *ngSwitchCase="0">Heute wurden noch keine Eier gelegt.</span>
@@ -12,7 +12,7 @@
 
 <mat-card class="margin-bottom">
   <mat-card-header>
-    <mat-icon mat-card-avatar>speaker</mat-icon>
+    <app-icon mat-card-avatar icon="hen-house"></app-icon>
     <mat-card-title>Stall</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -30,7 +30,7 @@
 
 <mat-card class="margin-bottom">
   <mat-card-header>
-    <mat-icon mat-card-avatar>pets</mat-icon>
+    <app-icon mat-card-avatar icon="chicken"></app-icon>
     <mat-card-title>Hühner in der Nähe</mat-card-title>
   </mat-card-header>
   <mat-card-content>

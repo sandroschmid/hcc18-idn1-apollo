@@ -1,0 +1,4 @@
+<mat-icon *ngIf="view.icon.isSvg; else normalIcon" [svgIcon]="view.icon.name"></mat-icon>
+<ng-template #normalIcon>
+  <mat-icon>{{ view.icon.name }}</mat-icon>
+</ng-template>

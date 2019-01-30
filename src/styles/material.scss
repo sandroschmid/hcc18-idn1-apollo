@@ -3,6 +3,12 @@
 .mat-card {
 
   .mat-card-header {
+    .mat-card-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .mat-card-subtitle {
       &:last-child {
         margin-bottom: 0;

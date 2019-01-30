@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NAV_BAR_HOME } from '../../../core/model/constants';
 import { HenHouse } from '../../../core/model/hen-house';
+import { NavBarItem } from '../../../core/model/nav-bar-item';
 import { HenHouseService } from '../../../core/service/hen-house.service';
 
 @Component({
@@ -12,17 +14,19 @@ import { HenHouseService } from '../../../core/service/hen-house.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public view: {
+    navBarItem: NavBarItem,
     eggsCount: number,
     henHouse: HenHouse,
     closeChickens: string[]
   } = {
+    navBarItem: NAV_BAR_HOME,
     eggsCount: 0,
     henHouse: undefined,
     closeChickens: [
       'https://www.stubai.at/blog/wp-content/uploads/2016/10/Hennen-Bild-7.jpg',
       'https://apps-cloud.n-tv.de/img/17352026-1483444717000/16-9/750/kuken-mannlich.jpg',
-      'https://www.huehner-haltung.de/img/glucke-kueken-1-768x474.jpg'
-    ]
+      'https://www.huehner-haltung.de/img/glucke-kueken-1-768x474.jpg',
+    ],
   };
 
   private readonly _ngDestroy = new Subject<void>();
