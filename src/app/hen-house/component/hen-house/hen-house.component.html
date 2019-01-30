@@ -1,7 +1,108 @@
-<mat-card class="margin-bottom">
-  <mat-card-header>
-    <app-icon mat-card-avatar *ngIf="view.navBarItem.icon" [icon]="view.navBarItem.icon.name"></app-icon>
-    <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
-    <mat-card-subtitle>Alle Informationen zum Stall auf einen Blick</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
+<ng-container *ngIf="view.henHouse; else noHenHouse">
+  <mat-card class="margin-bottom">
+    <mat-card-header>
+      <app-icon mat-card-avatar *ngIf="view.navBarItem.icon" [icon]="view.navBarItem.icon.name"></app-icon>
+      <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
+      <mat-card-subtitle>Alle Informationen zum Stall auf einen Blick</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <form class="door margin-bottom" [formGroup]="view.doorForm">
+    <mat-card>
+      <mat-card-header>
+        <app-icon mat-card-avatar [icon]="view.henHouse.door.isOpen ? 'lock_open' : 'lock'"></app-icon>
+        <mat-card-title>Stalltüre</mat-card-title>
+        <mat-card-subtitle>
+          <span>Die Stalltüre ist </span>
+          <span *ngIf="view.henHouse.door.isOpen; else doorClosed">geöffnet</span>
+          <ng-template #doorClosed>
+            <span>geschlossen</span>
+          </ng-template>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <mat-checkbox formControlName="automatismActive" [value]="true">Türautomatik aktiv</mat-checkbox>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-placeholder>Öffnen</mat-placeholder>
+            <mat-select formControlName="open">
+              <mat-option *ngFor="let option of view.doorFormOpenOptions" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-placeholder>Close</mat-placeholder>
+            <mat-select formControlName="close">
+              <mat-option *ngFor="let option of view.doorFormCloseOptions" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="toggleDoor()">
+          <span *ngIf="view.henHouse.door.isOpen; else openDoorLabel">Schließen</span>
+          <ng-template #openDoorLabel>
+            <span>Öffnen</span>
+          </ng-template>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+  <mat-card class="margin-bottom">
+    <mat-card-header>
+      <app-icon mat-card-avatar icon="thermostat"></app-icon>
+      <mat-card-title>Temperaturen</mat-card-title>
+      <mat-card-subtitle>
+        <span *ngIf="view.henHouse.temperatureInside < 10; else temperatureNotCold"
+              class="color-cold">Frostgefahr</span>
+        <ng-template #temperatureNotCold>
+          <span *ngIf="view.henHouse.temperatureInside > 25; else temperatureOk" class="color-warm">Wärmegefahr</span>
+          <ng-template #temperatureOk>
+            <span class="color-neutral">Die Temperatur ist OK</span>
+          </ng-template>
+        </ng-template>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div>Temperatur außen: {{ view.henHouse.temperatureOutside }}°C</div>
+      <div>Temperatur innen: {{ view.henHouse.temperatureInside }}°C</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="margin-bottom">
+    <mat-card-header>
+      <app-icon mat-card-avatar icon="sensor"></app-icon>
+      <mat-card-title>Sensoren</mat-card-title>
+      <mat-card-subtitle>
+        <span
+          *ngIf="view.henHouse.sensors.egg && view.henHouse.sensors.temperatureOutside && view.henHouse.sensors.temperatureInside; else brokenSensors">
+          Alle Sensoren sind einsatzbereit
+        </span>
+        <ng-template #brokenSensors>
+          <span class="label-error">Manche Sensoren sind nicht funktionsfähig!</span>
+        </ng-template>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div [class.label-error]="!view.henHouse.sensors.egg">
+        Eiersensor: {{ view.henHouse.sensors.egg ? 'OK' : 'Fehlerhaft' }}
+      </div>
+      <div [class.label-error]="!view.henHouse.sensors.temperatureOutside">
+        Temperatur außen: {{ view.henHouse.sensors.temperatureOutside ? 'OK' : 'Fehlerhaft' }}
+      </div>
+      <div [class.label-error]="!view.henHouse.sensors.temperatureInside">
+        Temperatur innen: {{ view.henHouse.sensors.temperatureInside ? 'OK' : 'Fehlerhaft' }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #noHenHouse>
+  <mat-card class="margin-bottom">
+    <mat-card-content>Die Stalldaten konnten nicht geladen werden.</mat-card-content>
+  </mat-card>
+</ng-template>

@@ -2,10 +2,14 @@ import { NavBarItemBuilder } from './nav-bar-item';
 
 export const APP_NAME = 'APollo';
 
+export const RANDOMIZE_DATA_DELAY = 3000;
+
 export const SVG_ICONS: string[] = [
   'chicken',
   'egg',
   'hen-house',
+  'thermostat',
+  'sensor'
 ];
 
 export const NAV_BAR_PANEL = new NavBarItemBuilder().path('/panel')

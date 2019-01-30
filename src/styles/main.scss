@@ -23,3 +23,16 @@ body {
 a {
   text-decoration: none;
 }
+
+.color-cold {
+  color: $color-cold;
+}
+
+.color-neutral {
+  color: $color-neutral;
+}
+
+.color-warm,
+.label-error {
+  color: $color-warm;
+}

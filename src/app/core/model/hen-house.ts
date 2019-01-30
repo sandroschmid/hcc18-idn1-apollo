@@ -1,5 +1,9 @@
+import { HenHouseDoor } from './hen-house-door';
+import { HenHouseSensors } from './HenHouseSensors';
+
 export class HenHouse {
-  public temperatureInside: number;
+  public door: HenHouseDoor;
   public temperatureOutside: number;
-  public isDoorOpen = false;
+  public temperatureInside: number;
+  public sensors: HenHouseSensors;
 }

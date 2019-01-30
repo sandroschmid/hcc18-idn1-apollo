@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Chicken } from '../model/chicken';
-import { APP_NAME } from '../model/constants';
+import { APP_NAME, RANDOMIZE_DATA_DELAY } from '../model/constants';
 import { HenHouse } from '../model/hen-house';
 import { PanelQuestion, PanelQuestionBuilder } from '../model/panel-question';
 import { PanelResponse, PanelResponseBuilder } from '../model/panel-response';
+import { HenHouseDoor } from '../model/hen-house-door';
 
 @Injectable()
 export class StateService {
@@ -28,9 +29,9 @@ export class StateService {
           .user('Anna Musterfrau')
           .text('Das könnte sein, weil blablabla')
           .date(new Date('2019-01-28T18:15:05Z'))
-          .build(),
+          .build()
       ])
-      .build(),
+      .build()
   ]);
 
   private readonly _chickens = new BehaviorSubject<Chicken[]>([
@@ -39,22 +40,37 @@ export class StateService {
       name: 'Lilli',
       birthDate: new Date('2018-09-20T00:00:00Z'),
       eggsTotal: 12,
-      eggsToday: 0,
+      eggsToday: 0
     },
     {
       id: 2,
       name: 'Pippi',
       birthDate: new Date('2018-10-20T00:00:00Z'),
       eggsTotal: 0,
-      eggsToday: 0,
-    },
+      eggsToday: 0
+    }
   ]);
 
   private readonly _henHouse = new BehaviorSubject<HenHouse>({
     temperatureInside: 3,
     temperatureOutside: -2,
-    isDoorOpen: true,
+    door: {
+      isOpen: true,
+      automatismActive: true,
+      open: '07:00',
+      close: '17:30'
+    },
+    sensors: {
+      egg: true,
+      temperatureOutside: true,
+      temperatureInside: true
+    }
   });
+
+  public constructor() {
+    this.updateRandomState = this.updateRandomState.bind(this);
+    setTimeout(this.updateRandomState, RANDOMIZE_DATA_DELAY);
+  }
 
   public setTitle(title: string | undefined): void {
     this._title.next(title || APP_NAME);
@@ -72,7 +88,7 @@ export class StateService {
     const question = questionBuilder.id(this.autoId(this._panelQuestions.value)).build();
     this._panelQuestions.next([
       question,
-      ...this._panelQuestions.value,
+      ...this._panelQuestions.value
     ]);
 
     return of(question);
@@ -109,6 +125,20 @@ export class StateService {
     return this._henHouse;
   }
 
+  public updateHenHouseDoorSettings(door: HenHouseDoor): Observable<void> {
+    this._henHouse.value.door.automatismActive = door.automatismActive;
+    this._henHouse.value.door.open = door.open;
+    this._henHouse.value.door.close = door.close;
+    this._henHouse.next(this._henHouse.value);
+    return of();
+  }
+
+  public toggleHenHouseDoor(): Observable<void> {
+    this._henHouse.value.door.isOpen = !this._henHouse.value.door.isOpen;
+    this._henHouse.next(this._henHouse.value);
+    return of();
+  }
+
   private autoId(list: { id: number }[]): number {
     let maxId = 0;
     list.forEach(item => {
@@ -118,5 +148,24 @@ export class StateService {
     });
 
     return maxId + 1;
+  }
+
+  private updateRandomState(): void {
+    const henHouse = this._henHouse.value;
+    if (this._henHouse.value.temperatureInside > 30 || this._henHouse.value.temperatureOutside > 30) {
+      henHouse.temperatureInside = 3;
+      henHouse.temperatureOutside = -2;
+    } else {
+      this._henHouse.value.temperatureInside += 8;
+      this._henHouse.value.temperatureOutside += 8;
+    }
+
+    henHouse.sensors.egg = Math.random() < 0.5;
+    henHouse.sensors.temperatureInside = Math.random() < 0.5;
+    henHouse.sensors.temperatureOutside = Math.random() < 0.5;
+
+    this._henHouse.next(henHouse);
+
+    setTimeout(this.updateRandomState, RANDOMIZE_DATA_DELAY);
   }
 }
