@@ -12,3 +12,4 @@ export const NAV_BAR_HOME = new NavBarItemBuilder().path('/home')
 export const NAV_BAR_HEN_HOUSE = new NavBarItemBuilder().path('/hen-house').label('Stall').icon('home').build();
 export const NAV_BAR_FAMILY = new NavBarItemBuilder().path('/family').label('Familie').icon('pets').build();
 
+export const AVATAR = 'https://api.adorable.io/avatars/100/apollo.png';

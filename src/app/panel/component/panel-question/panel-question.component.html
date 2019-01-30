@@ -1,0 +1,27 @@
+<ng-container *ngIf="view.question; else noQuestion">
+  <app-panel-question-item class="margin-bottom" [question]="view.question"></app-panel-question-item>
+
+  <form class="margin-bottom response" *ngIf="view.form" [formGroup]="view.form">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Schreibe eine Antwort:</mat-label>
+          <textarea matInput formControlName="response"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions *ngIf="view.form.controls.response.value">
+        <button mat-raised-button color="primary" type="button" (click)="sendResponse()">Send</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+  <app-panel-response-item class="margin-bottom"
+                           *ngFor="let response of view.question.responses"
+                           [response]="response"></app-panel-response-item>
+</ng-container>
+
+<ng-template #noQuestion>
+  <mat-card>
+    <mat-card-content>Dieser Eintrag existiert nicht oder wurde gelöscht.</mat-card-content>
+  </mat-card>
+</ng-template>

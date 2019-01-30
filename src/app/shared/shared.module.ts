@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 
@@ -7,12 +8,16 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     RouterModule,
-    MaterialModule
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
   ],
   exports: [
     CommonModule,
     RouterModule,
-    MaterialModule
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
   ],
 })
 export class SharedModule {

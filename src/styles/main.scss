@@ -10,3 +10,15 @@ body {
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.margin-bottom {
+  display: block;
+
+  &:not(:last-child) {
+    margin-bottom: $gap-large;
+  }
+}
+
+a {
+  text-decoration: none;
+}

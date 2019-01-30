@@ -1,7 +1,22 @@
-<mat-card>
-  <mat-card-header>
-    <mat-icon mat-card-avatar *ngIf="view.navBarItem.icon">{{ view.navBarItem.icon }}</mat-icon>
-    <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
-    <mat-card-subtitle>Die Hühner-Community</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
+<form class="margin-bottom question" *ngIf="view.form" [formGroup]="view.form">
+  <mat-card class="margin-bottom">
+    <mat-card-header>
+      <mat-icon mat-card-avatar *ngIf="view.navBarItem.icon">{{ view.navBarItem.icon }}</mat-icon>
+      <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
+      <mat-card-subtitle>Die Hühner-Community</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Wie lautet deine Frage?</mat-label>
+        <textarea matInput formControlName="question"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions *ngIf="view.form.controls.question.value">
+      <button mat-raised-button color="primary" type="button" (click)="sendQuestion()">Send</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<a class="margin-bottom" *ngFor="let question of view.questions" [routerLink]="['/panel', question.id]">
+  <app-panel-question-item [question]="question"></app-panel-question-item>
+</a>

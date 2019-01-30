@@ -1,3 +1,5 @@
+@import "variables";
+
 .mat-card {
 
   .mat-card-header {
@@ -6,10 +8,19 @@
         margin-bottom: 0;
       }
     }
+
+    margin-bottom: $gap-large;
   }
 
   .mat-card-actions {
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+@media (max-width: 400px) {
+  .mat-button,
+  .mat-raised-button {
+    width: 100%;
   }
 }

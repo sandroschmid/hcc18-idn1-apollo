@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar [src]="view.avatar" alt="Benutzer Avatar">
+    <mat-card-title>{{ view.question.user }}</mat-card-title>
+    <mat-card-subtitle>
+      <span>{{ view.question.date | date:'short' }}, </span>
+      <ng-container [ngSwitch]="view.question.responses.length">
+        <span *ngSwitchCase="0">keine Antworten</span>
+        <span *ngSwitchCase="1">eine Antwort</span>
+        <span *ngSwitchDefault>{{ view.question.responses.length }} Antworten</span>
+      </ng-container>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>{{ view.question.text }}</mat-card-content>
+</mat-card>
