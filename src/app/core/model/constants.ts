@@ -1,6 +1,6 @@
 import { NavBarItemBuilder } from './nav-bar-item';
 
-export const APP_NAME = 'APollo';
+export const APP_NAME = 'Apollo';
 
 export const RANDOMIZE_DATA_DELAY = 3000;
 

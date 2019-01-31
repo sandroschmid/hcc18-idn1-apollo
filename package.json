@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --poll=1000",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prod-server": "http-server -p 8080 -c-1 dist/hcc18-idn1-apollo"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +22,9 @@
     "@angular/material-moment-adapter": "^7.3.0",
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
+    "@angular/pwa": "^0.13.0",
     "@angular/router": "~7.2.0",
+    "@angular/service-worker": "~7.2.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "hammerjs": "2.0.8",
