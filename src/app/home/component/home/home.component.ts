@@ -5,6 +5,7 @@ import { NAV_BAR_HOME } from '../../../core/model/constants';
 import { HenHouse } from '../../../core/model/hen-house';
 import { NavBarItem } from '../../../core/model/nav-bar-item';
 import { HenHouseService } from '../../../core/service/hen-house.service';
+import { ChickenService } from '../../../core/service/chicken.service';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   public view: {
     navBarItem: NavBarItem,
     eggsCount: number,
+    eggsCollected: number,
     henHouse: HenHouse,
     closeChickens: string[]
   } = {
     navBarItem: NAV_BAR_HOME,
     eggsCount: 0,
+    eggsCollected: 0,
     henHouse: undefined,
     closeChickens: [
       'https://www.stubai.at/blog/wp-content/uploads/2016/10/Hennen-Bild-7.jpg',
@@ -31,17 +34,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly _ngDestroy = new Subject<void>();
 
-  public constructor(private readonly _henHouse: HenHouseService) {
+  public constructor(private readonly _henHouseService: HenHouseService,
+                     private readonly _chickenService: ChickenService) {
   }
 
   public ngOnInit(): void {
-    this._henHouse.getAvailableEggsCount()
+    this._henHouseService.getAvailableEggsCount()
       .pipe(takeUntil(this._ngDestroy))
       .subscribe(eggsCount => this.view.eggsCount = eggsCount);
 
-    this._henHouse.getHenHouse()
+    this._henHouseService.getHenHouse()
       .pipe(takeUntil(this._ngDestroy))
       .subscribe(henHouse => this.view.henHouse = henHouse);
+
+    this._chickenService.findAll()
+      .pipe(takeUntil(this._ngDestroy))
+      .subscribe(chickens => this.view.eggsCollected = chickens.map(c => c.eggsToday).reduce((sum, eggs) => sum + eggs, 0));
   }
 
   public ngOnDestroy(): void {

@@ -1,12 +1,7 @@
 @import "../../../../styles/variables";
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 $toolbar-height: 56px;
+$toolbar-height-desktop: 64px;
 
 .fixed {
   position: fixed;
@@ -27,4 +22,41 @@ $toolbar-height: 56px;
 
 main {
   padding: $gap-normal + $toolbar-height $gap-normal;
+}
+
+@media (min-width: 600px) {
+  .fixed {
+    &.top {
+      height: $toolbar-height-desktop;
+    }
+  }
+
+  main {
+    padding-top: $gap-normal + $toolbar-height-desktop;
+  }
+}
+
+@media (min-width: 700px) {
+  .root-container,
+  /deep/ .mat-toolbar,
+  /deep/ nav {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .root-container,
+  /deep/ .mat-toolbar,
+  /deep/ nav {
+    max-width: 60%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .root-container,
+  /deep/ .mat-toolbar,
+  /deep/ nav {
+    max-width: 40%;
+  }
 }

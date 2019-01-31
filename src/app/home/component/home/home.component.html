@@ -6,9 +6,10 @@
       <mat-card-subtitle>Statistiken zu deinem Stall</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content [ngSwitch]="view.eggsCount">
-      <span *ngSwitchCase="0">Heute wurden noch keine Eier gelegt.</span>
-      <span *ngSwitchCase="1">Heute wurde ein Ei gelegt.</span>
-      <span *ngSwitchDefault>Heute wurden {{ view.eggsCount }} Eier gelegt.</span>
+      <span *ngSwitchCase="0">Heute wurden noch keine Eier gelegt</span>
+      <span *ngSwitchCase="1">Heute wurde ein Ei gelegt</span>
+      <span *ngSwitchDefault>Heute wurden {{ view.eggsCount }} Eier gelegt</span>
+      <span> und {{ view.eggsCollected }} wurden eingesammelt.</span>
     </mat-card-content>
   </mat-card>
 </a>

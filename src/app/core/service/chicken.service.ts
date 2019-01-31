@@ -23,4 +23,8 @@ export class ChickenService {
   public createChicken(chickenBuilder: ChickenBuilder): Observable<Chicken> {
     return this._state.createChicken(chickenBuilder);
   }
+
+  public updateChicken(chicken: Chicken): Observable<Chicken> {
+    return this._state.updateChicken(chicken);
+  }
 }

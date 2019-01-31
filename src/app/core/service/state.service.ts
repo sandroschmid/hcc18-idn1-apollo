@@ -54,7 +54,7 @@ export class StateService {
     },
     {
       id: 3,
-      name: 'Maxi',
+      name: 'Lola',
       birthDate: new Date('2018-10-20T00:00:00Z'),
       eggsTotal: 5,
       eggsToday: 0
@@ -139,6 +139,18 @@ export class StateService {
   public createChicken(chickenBuilder: ChickenBuilder): Observable<Chicken> {
     const chicken = chickenBuilder.id(this.autoId(this._chickens.value)).build();
     this._chickens.next([chicken, ...this._chickens.value]);
+    return of(chicken);
+  }
+
+  public updateChicken(chicken: Chicken): Observable<Chicken> {
+    const index = this._chickens.value.findIndex(c => c.id === chicken.id);
+    if (index < 0) {
+      return throwError('Chicken not found');
+    }
+
+    this._chickens.value.splice(index, 1, chicken);
+    this._chickens.next(this._chickens.value);
+
     return of(chicken);
   }
 

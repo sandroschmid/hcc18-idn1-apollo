@@ -1,3 +1,13 @@
+<mat-card class="margin-bottom">
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab *ngFor="let chicken of view.chickens" [label]="chicken.name">
+        <app-eggs-counter [chicken]="chicken"></app-eggs-counter>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+
 <a class="margin-bottom"
    *ngIf="view.eggsKing && view.eggsKing.eggsTotal > 0"
    [routerLink]="['/family', 'chicken', view.eggsKing.id ]">

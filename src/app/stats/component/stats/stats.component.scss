@@ -1,0 +1,7 @@
+@import "../../../../styles/variables";
+
+/deep/ .mat-tab-group {
+  .mat-tab-header {
+    margin-bottom: $gap-normal;
+  }
+}

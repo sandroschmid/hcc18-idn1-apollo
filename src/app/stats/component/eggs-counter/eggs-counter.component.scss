@@ -1,0 +1,52 @@
+@import "../../../../styles/variables";
+
+.egg-counter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  /deep/ .mat-icon {
+    color: rgb(240, 160, 20);
+  }
+
+  .counter-label {
+    position: relative;
+
+    span {
+      position: absolute;
+    }
+
+    &.large {
+      img {
+        width: 80px;
+      }
+
+      span {
+        left: 32px;
+        top: 25px;
+      }
+    }
+
+    &.medium {
+      img {
+        width: 65px;
+      }
+
+      span {
+        left: 25px;
+        top: 20px;
+      }
+    }
+
+    &.small {
+      img {
+        width: 50px;
+      }
+
+      span {
+        left: 20px;
+        top: 15px;
+      }
+    }
+  }
+}

@@ -1,12 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {Chart} from '../../../core/model/chart';
-import {Chicken} from '../../../core/model/chicken';
-import {Color} from '../../../core/model/color';
-import {NAV_BAR_STATS} from '../../../core/model/constants';
-import {NavBarItem} from '../../../core/model/nav-bar-item';
-import {ChickenService} from '../../../core/service/chicken.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Chart } from '../../../core/model/chart';
+import { Chicken } from '../../../core/model/chicken';
+import { NAV_BAR_STATS } from '../../../core/model/constants';
+import { NavBarItem } from '../../../core/model/nav-bar-item';
+import { ChickenService } from '../../../core/service/chicken.service';
 
 @Component({
   selector: 'app-stats',
@@ -17,10 +16,12 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   public readonly view: {
     navBarItem: NavBarItem,
+    chickens: Chicken[],
     eggsKing: Chicken,
     eggDistributionChart: Chart
   } = {
     navBarItem: NAV_BAR_STATS,
+    chickens: undefined,
     eggsKing: undefined,
     eggDistributionChart: undefined
   };
@@ -42,6 +43,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   private onChickensLoaded(chickens: Chicken[]): void {
+    this.view.chickens = chickens;
     this.view.eggsKing = chickens.reduce((king, chicken) => !king || chicken.eggsTotal > king.eggsTotal ? chicken : king, undefined);
     this.view.eggDistributionChart = this.createEggDistributionChart(chickens);
   }
