@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { Chicken, ChickenBuilder } from '../model/chicken';
-import { APP_NAME, RANDOMIZE_DATA_DELAY } from '../model/constants';
-import { HenHouse } from '../model/hen-house';
-import { HenHouseDoor } from '../model/hen-house-door';
-import { Icon } from '../model/icon';
-import { NavBarItem } from '../model/nav-bar-item';
-import { PanelQuestion, PanelQuestionBuilder } from '../model/panel-question';
-import { PanelResponse, PanelResponseBuilder } from '../model/panel-response';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import {Chicken, ChickenBuilder} from '../model/chicken';
+import {APP_NAME, RANDOMIZE_DATA_DELAY} from '../model/constants';
+import {HenHouse} from '../model/hen-house';
+import {HenHouseDoor} from '../model/hen-house-door';
+import {Icon} from '../model/icon';
+import {NavBarItem} from '../model/nav-bar-item';
+import {PanelQuestion, PanelQuestionBuilder} from '../model/panel-question';
+import {PanelResponse, PanelResponseBuilder} from '../model/panel-response';
 
 @Injectable()
 export class StateService {
@@ -50,6 +50,13 @@ export class StateService {
       name: 'Pippi',
       birthDate: new Date('2018-10-20T00:00:00Z'),
       eggsTotal: 0,
+      eggsToday: 0
+    },
+    {
+      id: 3,
+      name: 'Maxi',
+      birthDate: new Date('2018-10-20T00:00:00Z'),
+      eggsTotal: 5,
       eggsToday: 0
     }
   ]);

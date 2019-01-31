@@ -34,12 +34,6 @@
   @include text-ellipsis();
 }
 
-@media (max-width: 750px) {
-  .cdk-overlay-pane {
-    width: 100%;
-  }
-}
-
 @media (max-width: 400px) {
   .mat-card {
     .mat-card-actions {

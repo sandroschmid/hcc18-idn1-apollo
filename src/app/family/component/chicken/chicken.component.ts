@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
-import { Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Chart } from '../../../core/model/chart';
-import { Chicken } from '../../../core/model/chicken';
-import { AVATAR } from '../../../core/model/constants';
-import { ChickenService } from '../../../core/service/chicken.service';
+import {Subject} from 'rxjs';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
+import {Chart} from '../../../core/model/chart';
+import {Chicken} from '../../../core/model/chicken';
+import {AVATAR} from '../../../core/model/constants';
+import {ChickenService} from '../../../core/service/chicken.service';
 
 @Component({
   selector: 'app-chicken',
@@ -14,6 +14,25 @@ import { ChickenService } from '../../../core/service/chicken.service';
   styleUrls: ['./chicken.component.scss']
 })
 export class ChickenComponent implements OnInit, OnDestroy {
+
+  private static readonly TIME_RANGES = [
+    {
+      label: '7 Tage',
+      continuousText: 'in den letzten sieben Tagen'
+    },
+    {
+      label: '4 Wochen',
+      continuousText: 'in den letzten vier Wochen'
+    },
+    {
+      label: '6 Monate',
+      continuousText: 'in den letzten sechs Monaten'
+    },
+    {
+      label: 'Ganzes Jahr',
+      continuousText: 'im vergangen Jahr'
+    }
+  ];
 
   private static readonly WEEK_DAYS: string[] = [
     'SO',
@@ -25,14 +44,33 @@ export class ChickenComponent implements OnInit, OnDestroy {
     'SA'
   ];
 
+  private static readonly MONTHS: string[] = [
+    'Jän.',
+    'Feb.',
+    'März',
+    'April',
+    'Mai',
+    'Juni',
+    'Juli',
+    'Aug.',
+    'Sept.',
+    'Okt.',
+    'Nov.',
+    'Dez.'
+  ];
+
   public readonly view: {
     avatar: string,
     chicken: Chicken,
+    timeRanges: { label: string, continuousText: string }[],
+    selectedRange: { label: string, continuousText: string },
     chart: Chart,
     eggSum: number
   } = {
     avatar: AVATAR,
     chicken: undefined,
+    timeRanges: ChickenComponent.TIME_RANGES,
+    selectedRange: ChickenComponent.TIME_RANGES[0],
     chart: undefined,
     eggSum: undefined
   };
@@ -52,39 +90,61 @@ export class ChickenComponent implements OnInit, OnDestroy {
       )
       .subscribe(chicken => this.view.chicken = chicken);
 
-    this.initChart();
+    this.updateChart();
   }
 
   public ngOnDestroy(): void {
     this._ngDestroy.next();
   }
 
-  private initChart(): void {
-    const labels: string[] = [];
-    const data: number[] = [];
-    this.view.eggSum = 0;
-    for (let i = 0; i < 7; i++) {
-      labels.unshift(ChickenComponent.WEEK_DAYS[moment().subtract(i, 'days').weekday()]);
-      // labels.unshift(this._simpleDate.transform(moment().subtract(i, 'days').toDate(), 'dd.MM.'));
-      const eggs = Math.round(Math.random() * 3);
-      data.unshift(eggs);
-      this.view.eggSum += eggs;
-    }
-
+  public updateChart(): void {
+    const data = this.getChartData();
     this.view.chart = {
       type: 'bar',
-      labels: labels,
-      legend: true,
+      labels: data.labels,
+      legend: false,
       min: 0,
       stepSize: 1,
       data: [
         {
           id: 'eggs',
           label: 'Eier',
-          data: data
+          data: data.data,
         }
       ]
     };
+  }
+
+  private getChartData(): ({ labels: string[], data: number[] }) {
+    const result = {labels: [], data: []};
+    this.view.eggSum = 0;
+
+    if (this.view.selectedRange.label === '7 Tage') {
+      for (let i = 0; i < 7; i++) {
+        result.labels.unshift(ChickenComponent.WEEK_DAYS[moment().subtract(i, 'days').weekday()]);
+        // labels.unshift(this._simpleDate.transform(moment().subtract(i, 'days').toDate(), 'dd.MM.'));
+        const eggs = Math.round(Math.random() * 3);
+        result.data.unshift(eggs);
+        this.view.eggSum += eggs;
+      }
+    } else if (this.view.selectedRange.label === '4 Wochen') {
+      for (let i = 0; i < 4; i++) {
+        result.labels.unshift(`KW ${moment().subtract(i, 'week').week()}`);
+        const eggs = Math.round(Math.random() * (12 - 3) + 3);
+        result.data.unshift(eggs);
+        this.view.eggSum += eggs;
+      }
+    } else {
+      const months = this.view.selectedRange.label === '6 Monate' ? 6 : 12;
+      for (let i = 0; i < months; i++) {
+        result.labels.unshift(ChickenComponent.MONTHS[moment().subtract(i, 'month').month()]);
+        const eggs = Math.round(Math.random() * (40 - 10) + 10);
+        result.data.unshift(eggs);
+        this.view.eggSum += eggs;
+      }
+    }
+
+    return result;
   }
 
 }

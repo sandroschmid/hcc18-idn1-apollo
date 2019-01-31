@@ -1,7 +1,7 @@
 import { ChartDataItem } from './chart-data-item';
 
 export interface Chart {
-  readonly type: 'radar' | 'bar' | 'horizontalBar' | 'line' | 'scatter';
+  readonly type: 'radar' | 'bar' | 'horizontalBar' | 'line' | 'scatter' | 'doughnut';
   readonly labels?: string[];
   readonly data?: ChartDataItem[];
 

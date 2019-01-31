@@ -5,3 +5,49 @@
     <mat-card-subtitle>Statistiken zu deinem Stall</mat-card-subtitle>
   </mat-card-header>
 </mat-card>
+
+<a class="margin-bottom"
+   *ngIf="view.eggsKing && view.eggsKing.eggsTotal > 0"
+   [routerLink]="['/family', 'chicken', view.eggsKing.id ]">
+  <mat-card>
+    <mat-card-header>
+      <app-icon mat-card-avatar icon="whatshot"></app-icon>
+      <mat-card-title>Eierkönigin</mat-card-title>
+      <mat-card-subtitle>
+        <span>{{ view.eggsKing.name }} ist die Eierkönigin. Sie hält den Rekord mit {{ view.eggsKing.eggsTotal }}
+          Eiern!</span>
+        <span>
+        Heute hat sie
+        <ng-container [ngSwitch]="view.eggsKing.eggsToday">
+          <ng-container *ngSwitchCase="0">noch keine Eier</ng-container>
+          <ng-container *ngSwitchCase="1">erst ein Ei</ng-container>
+          <ng-container *ngSwitchDefault>{{ view.eggsKing.eggsToday }} Eier</ng-container>
+        </ng-container>
+        gelegt.
+      </span>
+      </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</a>
+
+<mat-card class="margin-bottom">
+  <mat-card-header>
+    <app-icon mat-card-avatar icon="pie_chart"></app-icon>
+    <mat-card-title>Insgesamt gelegte Eier</mat-card-title>
+    <mat-card-subtitle>Verteilung je Huhn</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <app-chart [chart]="view.eggDistributionChart"></app-chart>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="margin-bottom" *ngIf="view.eggsKing && view.eggsKing.eggsTotal > 0">
+  <mat-card-header>
+    <app-icon mat-card-avatar icon="thermostat"></app-icon>
+    <mat-card-title class="color-cold">Temperatur</mat-card-title>
+    <mat-card-subtitle>
+      Die durchschnittliche Temperatur lag in den letzten 7 Tagen bei 4°C außen und 5°C innen.
+      Es besteht Kältegefahr!
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

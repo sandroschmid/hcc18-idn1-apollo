@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Chart } from '../../../core/model/chart';
-import { Color } from '../../../core/model/color';
+import {Component, Input} from '@angular/core';
+import {Chart} from '../../../core/model/chart';
 
 @Component({
   selector: 'app-chart',
@@ -12,7 +11,7 @@ export class ChartComponent {
   public readonly view: {
     chart: Chart,
     options: any,
-    colors: {
+    colors?: {
       backgroundColor?: string,
       borderColor?: string,
       pointBackgroundColor?: string,
@@ -22,7 +21,7 @@ export class ChartComponent {
     }[]
   } = {
     chart: undefined,
-    options: undefined,
+    options: {},
     colors: undefined
   };
 
@@ -43,14 +42,12 @@ export class ChartComponent {
     this.applyMinMaxOptions();
 
     if (this.view.chart.type === 'radar') {
-      this.view.options.scale.pointLabels = { fontSize: 12, fontStyle: 'normal', fontFamily: 'Arial' };
+      this.view.options.scale = {pointLabels: {fontSize: 12, fontStyle: 'normal', fontFamily: 'Arial'}};
     }
 
     if (this.view.chart.type === 'horizontalBar') {
-      this.view.options.scales.yAxes = [{ maxBarThickness: 30 }];
+      this.view.options.scales = {yAxes: [{maxBarThickness: 30}]};
     }
-
-    this.colorize();
   }
 
   private applyMinMaxOptions(): void {
@@ -64,7 +61,7 @@ export class ChartComponent {
         min: this.view.chart.min,
         max: this.view.chart.max,
         stepSize: this.view.chart.stepSize,
-        precision: this.view.chart.stepSize && this.view.chart.stepSize > 1 ? 0 : 0.5
+        precision: 0
       }
     };
 
@@ -74,30 +71,12 @@ export class ChartComponent {
         break;
       case 'bar':
       case 'line':
-        this.view.options.scales = { yAxes: [ticks] };
+        this.view.options.scales = {yAxes: [ticks]};
         break;
       case 'horizontalBar':
-        this.view.options.scales = { xAxes: [ticks] };
+        this.view.options.scales = {xAxes: [ticks]};
         break;
     }
-  }
-
-  private colorize(): void {
-    if (!this.view.chart || !this.view.chart.data) {
-      return;
-    }
-
-    this.view.colors = this.view.chart.data.map(dataItem => {
-      const color = Color.fromString(dataItem.id);
-      return {
-        backgroundColor: color.rgba(0.35),
-        borderColor: color.rgba(0.9),
-        pointBackgroundColor: color.rgba(0.95),
-        pointBorderColor: color.rgba(0.95),
-        pointHoverBackgroundColor: color.rgba(1),
-        pointHoverBorderColor: color.rgba(1)
-      };
-    });
   }
 
 }

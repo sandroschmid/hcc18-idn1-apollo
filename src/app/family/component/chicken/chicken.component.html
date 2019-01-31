@@ -5,17 +5,26 @@
     <mat-card-header>
       <app-icon mat-card-avatar icon="egg"></app-icon>
       <mat-card-title>Gelegte Eier</mat-card-title>
-      <mat-card-subtitle>
-        <span>{{ view.chicken.name }} hat in den letzten 7 Tagen </span>
+      <mat-card-subtitle *ngIf="view.chicken.eggsTotal > 0; else noEggs">
+        <span>{{ view.chicken.name }} hat {{ view.selectedRange.continuousText }} </span>
         <ng-container [ngSwitch]="view.eggSum">
           <span *ngSwitchCase="0">keine Eier</span>
           <span *ngSwitchCase="1">ein Ei</span>
           <span *ngSwitchDefault>{{ view.eggSum }} Eier</span>
         </ng-container>
-        <span>gelegt.</span>
+        <span> gelegt.</span>
       </mat-card-subtitle>
+      <ng-template #noEggs>
+        <mat-card-subtitle>{{ view.chicken.name }} hat noch keine Eier gelegt.</mat-card-subtitle>
+      </ng-template>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="view.chicken.eggsTotal > 0">
+      <mat-form-field appearance="outline">
+        <mat-label>Zeitraum</mat-label>
+        <mat-select [(value)]="view.selectedRange" (selectionChange)="updateChart()">
+          <mat-option *ngFor="let item of view.timeRanges" [value]="item">{{ item.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <app-chart [chart]="view.chart"></app-chart>
     </mat-card-content>
   </mat-card>
