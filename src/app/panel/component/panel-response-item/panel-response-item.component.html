@@ -2,7 +2,7 @@
   <mat-card-header>
     <img mat-card-avatar [src]="view.avatar" alt="Benutzer Avatar">
     <mat-card-title>{{ view.response.user }}</mat-card-title>
-    <mat-card-subtitle>{{ view.response.date | date:'short' }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ view.response.date | simpleDate:'dt' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>{{ view.response.text }}</mat-card-content>
 </mat-card>

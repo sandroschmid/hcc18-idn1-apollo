@@ -2,6 +2,43 @@
   <mat-card-header>
     <app-icon mat-card-avatar *ngIf="view.navBarItem.icon" [icon]="view.navBarItem.icon.name"></app-icon>
     <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
-    <mat-card-subtitle>Deine Hühnerfamilie</mat-card-subtitle>
+    <mat-card-subtitle>
+      <span>Du hast </span>
+      <ng-container [ngSwitch]="view.chickens.length">
+        <span *ngSwitchCase="0">keine Hühner</span>
+        <span *ngSwitchCase="1">ein Huhn</span>
+        <span *ngSwitchDefault>{{ view.chickens.length }} Hühner</span>
+      </ng-container>
+    </mat-card-subtitle>
   </mat-card-header>
 </mat-card>
+
+<form class="chicken margin-bottom" [formGroup]="view.chickenForm">
+  <mat-accordion>
+    <mat-expansion-panel #chickenFormExpansionPanel>
+      <mat-expansion-panel-header>Neues Huhn anlegen</mat-expansion-panel-header>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Geburtsdatum</mat-label>
+        <input matInput formControlName="birthDate" [matDatepicker]="birthDatePicker"
+               [min]="view.chickenBirthDateMin" [max]="view.chickenBirthDateMax">
+        <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #birthDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-action-row>
+        <button mat-raised-button color="primary" type="button"
+                (click)="createChicken()"
+                [disabled]="!view.chickenForm.valid">
+          Speichern
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>
+
+<a class="margin-bottom" *ngFor="let chicken of view.chickens" [routerLink]="['/family', 'chicken', chicken.id]">
+  <app-chicken-item [chicken]="chicken"></app-chicken-item>
+</a>

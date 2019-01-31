@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Chicken } from '../model/chicken';
+import { Chicken, ChickenBuilder } from '../model/chicken';
 import { StateService } from './state.service';
 
 @Injectable()
@@ -20,4 +20,7 @@ export class ChickenService {
       map(chickens => chickens.length === 1 ? chickens[0] : undefined));
   }
 
+  public createChicken(chickenBuilder: ChickenBuilder): Observable<Chicken> {
+    return this._state.createChicken(chickenBuilder);
+  }
 }

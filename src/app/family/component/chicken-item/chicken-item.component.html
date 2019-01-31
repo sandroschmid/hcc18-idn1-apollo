@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar [src]="view.avatar" [alt]="view.chicken.name">
+    <mat-card-title>{{ view.chicken.name }}</mat-card-title>
+    <mat-card-subtitle>
+      <span *ngIf="view.chicken.birthDate">
+        {{ view.chicken.birthDate | simpleDate:'d' }},
+      </span>
+      <ng-container [ngSwitch]="view.chicken.eggsTotal">
+        <ng-container *ngSwitchCase="0">keine Eier gelegt</ng-container>
+        <ng-container *ngSwitchCase="1">ein gelegtes Ei</ng-container>
+        <ng-container *ngSwitchDefault>{{ view.chicken.eggsTotal }} gelegte Eier</ng-container>
+      </ng-container>
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

@@ -1,0 +1,12 @@
+<div *ngIf="view.chart && view.chart.data; else noData" class="canvas-wrapper">
+  <canvas appChart
+          [chartType]="view.chart.type"
+          [legend]="view.chart.legend"
+          [datasets]="view.chart.data"
+          [labels]="view.chart.labels"
+          [colors]="view.colors"
+          [options]="view.options"></canvas>
+</div>
+<ng-template #noData>
+  <span>Das Diagramm kann nicht angezeigt werden.</span>
+</ng-template>

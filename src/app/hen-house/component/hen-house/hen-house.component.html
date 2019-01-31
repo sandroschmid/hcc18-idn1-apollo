@@ -43,9 +43,9 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="toggleDoor()">
-          <span *ngIf="view.henHouse.door.isOpen; else openDoorLabel">Schließen</span>
+          <span *ngIf="view.henHouse.door.isOpen; else openDoorLabel">Türe schließen</span>
           <ng-template #openDoorLabel>
-            <span>Öffnen</span>
+            <span>Türe öffnen</span>
           </ng-template>
         </button>
       </mat-card-actions>

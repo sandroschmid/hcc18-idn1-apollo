@@ -3,7 +3,7 @@
     <img mat-card-avatar [src]="view.avatar" alt="Benutzer Avatar">
     <mat-card-title>{{ view.question.user }}</mat-card-title>
     <mat-card-subtitle>
-      <span>{{ view.question.date | date:'short' }}, </span>
+      <span>{{ view.question.date | simpleDate:'dt' }}, </span>
       <ng-container [ngSwitch]="view.question.responses.length">
         <span *ngSwitchCase="0">keine Antworten</span>
         <span *ngSwitchCase="1">eine Antwort</span>

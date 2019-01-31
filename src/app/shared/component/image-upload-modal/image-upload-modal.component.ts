@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Image } from '../../../core/model/image';
+import { ImageUploadModalData } from '../../../core/model/image-upload-modal-data';
 import { UtilityService } from '../../../core/service/utility.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UtilityService } from '../../../core/service/utility.service';
   templateUrl: './image-upload-modal.component.html',
   styleUrls: ['./image-upload-modal.component.scss']
 })
-export class ImageUploadModalComponent {
+export class ImageUploadModalComponent implements OnInit {
 
   public readonly view: {
     file: File,
@@ -21,7 +22,15 @@ export class ImageUploadModalComponent {
 
   public constructor(private readonly _dialogRef: MatDialogRef<ImageUploadModalComponent>,
                      private readonly _domSanitizer: DomSanitizer,
-                     private readonly _utility: UtilityService) {
+                     private readonly _utility: UtilityService,
+                     @Inject(MAT_DIALOG_DATA) private readonly _data: ImageUploadModalData) {
+  }
+
+  public ngOnInit(): void {
+    if (this._data.image) {
+      this.view.file = this._data.image.file;
+      this.view.imageUri = this._data.image.uri;
+    }
   }
 
   public async onFileUpload(event: any): Promise<void> {

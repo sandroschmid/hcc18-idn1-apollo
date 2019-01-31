@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { Chicken } from '../model/chicken';
+import { Chicken, ChickenBuilder } from '../model/chicken';
 import { APP_NAME, RANDOMIZE_DATA_DELAY } from '../model/constants';
 import { HenHouse } from '../model/hen-house';
 import { HenHouseDoor } from '../model/hen-house-door';
@@ -127,6 +127,12 @@ export class StateService {
 
   public get chickens(): Observable<Chicken[]> {
     return this._chickens;
+  }
+
+  public createChicken(chickenBuilder: ChickenBuilder): Observable<Chicken> {
+    const chicken = chickenBuilder.id(this.autoId(this._chickens.value)).build();
+    this._chickens.next([chicken, ...this._chickens.value]);
+    return of(chicken);
   }
 
   public get henHouse(): Observable<HenHouse> {

@@ -17,7 +17,7 @@ import { UtilityService } from './service/utility.service';
 
 @NgModule({
   imports: [
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     TitleBarComponent,
@@ -32,11 +32,11 @@ import { UtilityService } from './service/utility.service';
     ChickenService,
     HenHouseService,
     FamilyService,
-    UtilityService,
+    UtilityService
   ],
   exports: [
-    MainComponent,
-  ],
+    MainComponent
+  ]
 })
 export class CoreModule {
 

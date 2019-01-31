@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { AVATAR, NAV_BAR_PANEL } from '../../../core/model/constants';
@@ -19,16 +19,18 @@ import { ImageUploadModalComponent } from '../../../shared/component/image-uploa
 })
 export class PanelComponent implements OnInit, OnDestroy {
 
+  @ViewChild('questionFormExpansionPanel') public readonly questionFormExpansionPanel: MatExpansionPanel;
+
   public readonly view: {
     navBarItem: NavBarItem,
     avatar: string,
-    form: FormGroup,
+    questionForm: FormGroup,
     image: Image,
     questions: PanelQuestion[],
   } = {
     navBarItem: NAV_BAR_PANEL,
     avatar: AVATAR,
-    form: undefined,
+    questionForm: undefined,
     image: undefined,
     questions: undefined
   };
@@ -42,7 +44,7 @@ export class PanelComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.view.form = this._formBuilder.group({
+    this.view.questionForm = this._formBuilder.group({
       'question': undefined
     });
 
@@ -71,12 +73,15 @@ export class PanelComponent implements OnInit, OnDestroy {
   public sendQuestion(): void {
     const question = new PanelQuestionBuilder()
       .image(this.view.image)
-      .text(this.view.form.controls.question.value)
+      .text(this.view.questionForm.controls.question.value)
       .user('Test User');
     this._panelService.sendQuestion(question)
       .pipe(take(1))
       .subscribe(
-        _ => this.view.form.reset(),
+        _ => {
+          this.view.questionForm.reset();
+          this.questionFormExpansionPanel.close();
+        },
         _ => this._utility.showMessage('Beitrag konnte nicht gespeichert werden')
       );
   }

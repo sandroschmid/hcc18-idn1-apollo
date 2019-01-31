@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatExpansionPanel } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -17,15 +18,17 @@ import { UtilityService } from '../../../core/service/utility.service';
 })
 export class PanelQuestionComponent implements OnInit, OnDestroy {
 
+  @ViewChild('responseFormExpansionPanel') public readonly responseFormExpansionPanel: MatExpansionPanel;
+
   public readonly view: {
     navBarItem: NavBarItem,
     avatar: string,
-    form: FormGroup,
+    responseForm: FormGroup,
     question: PanelQuestion,
   } = {
     navBarItem: NAV_BAR_PANEL,
     avatar: AVATAR,
-    form: undefined,
+    responseForm: undefined,
     question: undefined,
   };
 
@@ -38,7 +41,7 @@ export class PanelQuestionComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.view.form = this._formBuilder.group({
+    this.view.responseForm = this._formBuilder.group({
       'response': undefined,
     });
 
@@ -55,12 +58,15 @@ export class PanelQuestionComponent implements OnInit, OnDestroy {
 
   public sendResponse(): void {
     const response = new PanelResponseBuilder()
-      .text(this.view.form.controls.response.value)
+      .text(this.view.responseForm.controls.response.value)
       .user('Test User');
     this._panelService.sendResponse(this.view.question.id, response)
       .pipe(take(1))
       .subscribe(
-        _ => this.view.form.reset(),
+        _ => {
+          this.view.responseForm.reset();
+          this.responseFormExpansionPanel.close();
+        },
         _ => this._utility.showMessage('Antwort konnte nicht gespeichert werden'),
       );
   }

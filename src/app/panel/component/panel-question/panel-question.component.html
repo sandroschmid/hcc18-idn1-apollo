@@ -1,18 +1,23 @@
 <ng-container *ngIf="view.question; else noQuestion">
   <app-panel-question-item class="margin-bottom" [question]="view.question"></app-panel-question-item>
 
-  <form class="margin-bottom response" *ngIf="view.form" [formGroup]="view.form">
-    <mat-card>
-      <mat-card-content>
+  <form class="response margin-bottom" [formGroup]="view.responseForm">
+    <mat-accordion>
+      <mat-expansion-panel #responseFormExpansionPanel>
+        <mat-expansion-panel-header>Eine Antwort schreiben</mat-expansion-panel-header>
         <mat-form-field appearance="outline">
-          <mat-label>Schreibe eine Antwort:</mat-label>
+          <mat-label>Wie lautet deine Antwort?</mat-label>
           <textarea matInput formControlName="response"></textarea>
         </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions *ngIf="view.form.controls.response.value">
-        <button mat-raised-button color="primary" type="button" (click)="sendResponse()">Senden</button>
-      </mat-card-actions>
-    </mat-card>
+        <mat-action-row>
+          <button mat-raised-button color="primary" type="button"
+                  (click)="sendResponse()"
+                  [disabled]="!view.responseForm.controls.response.value">
+            Senden
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
   </form>
 
   <app-panel-response-item class="margin-bottom"

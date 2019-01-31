@@ -3,9 +3,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 import { MaterialModule } from '../material/material.module';
+import { ChartComponent } from './component/chart/chart.component';
 import { IconComponent } from './component/icon/icon.component';
 import { ImageUploadModalComponent } from './component/image-upload-modal/image-upload-modal.component';
+import { ChartDirective } from './directive/chart.directive';
+import { SimpleDatePipe } from './pipe/simple-date.pipe';
 
 @NgModule({
   imports: [
@@ -15,13 +19,20 @@ import { ImageUploadModalComponent } from './component/image-upload-modal/image-
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    ChartsModule
   ],
   declarations: [
     IconComponent,
-    ImageUploadModalComponent
+    ImageUploadModalComponent,
+    ChartComponent,
+    ChartDirective,
+    SimpleDatePipe
   ],
   entryComponents: [
     ImageUploadModalComponent
+  ],
+  providers: [
+    SimpleDatePipe
   ],
   exports: [
     CommonModule,
@@ -30,8 +41,11 @@ import { ImageUploadModalComponent } from './component/image-upload-modal/image-
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    ChartsModule,
     IconComponent,
-  ],
+    ChartComponent,
+    SimpleDatePipe
+  ]
 })
 export class SharedModule {
 }

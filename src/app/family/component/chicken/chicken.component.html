@@ -1,0 +1,28 @@
+<ng-container *ngIf="view.chicken; else noChicken">
+  <app-chicken-item class="margin-bottom" [chicken]="view.chicken"></app-chicken-item>
+
+  <mat-card class="margin-bottom">
+    <mat-card-header>
+      <app-icon mat-card-avatar icon="egg"></app-icon>
+      <mat-card-title>Gelegte Eier</mat-card-title>
+      <mat-card-subtitle>
+        <span>{{ view.chicken.name }} hat in den letzten 7 Tagen </span>
+        <ng-container [ngSwitch]="view.eggSum">
+          <span *ngSwitchCase="0">keine Eier</span>
+          <span *ngSwitchCase="1">ein Ei</span>
+          <span *ngSwitchDefault>{{ view.eggSum }} Eier</span>
+        </ng-container>
+        <span>gelegt.</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <app-chart [chart]="view.chart"></app-chart>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #noChicken>
+  <mat-card>
+    <mat-card-content>Dieses Huhn existiert nicht oder wurde gelöscht.</mat-card-content>
+  </mat-card>
+</ng-template>
