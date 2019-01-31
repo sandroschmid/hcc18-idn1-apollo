@@ -65,7 +65,7 @@ export class PanelComponent implements OnInit, OnDestroy {
       .subscribe(image => {
         if (image && image instanceof Image) {
           this.view.image = image;
-          this._utility.showMessage('Image hochgeladen');
+          this._utility.showMessage('Bild hochgeladen');
         }
       });
   }

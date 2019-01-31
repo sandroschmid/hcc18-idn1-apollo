@@ -1,11 +1,3 @@
-<mat-card class="margin-bottom">
-  <mat-card-header>
-    <app-icon mat-card-avatar *ngIf="view.navBarItem.icon" [icon]="view.navBarItem.icon.name"></app-icon>
-    <mat-card-title>{{ view.navBarItem.title }}</mat-card-title>
-    <mat-card-subtitle>Die Hühner-Community</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
-
 <form class="question margin-bottom" [formGroup]="view.questionForm">
   <mat-accordion>
     <mat-expansion-panel #questionFormExpansionPanel>
