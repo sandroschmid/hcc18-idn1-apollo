@@ -11,5 +11,6 @@
       </ng-container>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>{{ view.question.text }}</mat-card-content>
+  <img mat-card-image *ngIf="view.question.image" [src]="view.question.image.uri" [alt]="view.question.image.file.name">
+  <mat-card-content *ngIf="view.question.text">{{ view.question.text }}</mat-card-content>
 </mat-card>

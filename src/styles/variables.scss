@@ -1,8 +1,11 @@
 $background-color: rgba(0, 0, 0, 0.05);
 
 $gap-normal: 16px;
+$gap-small: $gap-normal * 0.5;
 $gap-large: $gap-normal * 1.5;
 
 $color-cold: rgb(80, 80, 150);
 $color-neutral: rgb(80, 150, 80);
 $color-warm: rgb(150, 80, 80);
+$grey-dark: rgb(150, 150, 150);
+$grey-light: rgb(200, 200, 200);

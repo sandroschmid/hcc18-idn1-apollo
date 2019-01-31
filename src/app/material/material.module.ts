@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
-  MatCardModule, MatCheckboxModule,
+  MatCardModule, MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatToolbarModule,
+  MatToolbarModule
 } from '@angular/material';
 
 const modules = [
@@ -22,11 +22,12 @@ const modules = [
   MatSelectModule,
   MatCheckboxModule,
   MatSnackBarModule,
+  MatDialogModule
 ];
 
 @NgModule({
   imports: modules,
-  exports: modules,
+  exports: modules
 })
 export class MaterialModule {
 }

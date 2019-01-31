@@ -1,0 +1,20 @@
+<form class="image-upload">
+  <h2 matDialogTitle>Bild hochladen</h2>
+  <mat-dialog-content (click)="file.click()">
+    <div *ngIf="view.file && view.imageUri; else noImage" class="preview">
+      <img [src]="view.imageUri" [alt]="view.file.name">
+      <div class="mat-caption label">
+        <span class="file-name">{{ view.file.name }}</span>
+        <span class="change-image">Ändern</span>
+      </div>
+    </div>
+    <ng-template #noImage>
+      <div class="mat-caption no-image">Klicken, um Bild hochzuladen</div>
+    </ng-template>
+    <input type="file" #file hidden (change)="onFileUpload($event)">
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close type="button">Abbrechen</button>
+    <button mat-raised-button color="primary" type="button" [disabled]="!view.imageUri" (click)="onDone()">OK</button>
+  </mat-dialog-actions>
+</form>

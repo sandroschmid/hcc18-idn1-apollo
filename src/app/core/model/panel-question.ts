@@ -1,7 +1,9 @@
+import { Image } from './image';
 import { PanelResponse } from './panel-response';
 
 export class PanelQuestion {
   public readonly id: number;
+  public readonly image: Image;
   public readonly text: string;
   public readonly user: string;
   public readonly date: Date;
@@ -10,6 +12,7 @@ export class PanelQuestion {
 
 export class PanelQuestionBuilder {
   private _id: number;
+  private _image: Image;
   private _text: string;
   private _user: string;
   private _date: Date;
@@ -17,6 +20,11 @@ export class PanelQuestionBuilder {
 
   public id(id: number): this {
     this._id = id;
+    return this;
+  }
+
+  public image(image: Image): this {
+    this._image = image;
     return this;
   }
 
@@ -43,6 +51,7 @@ export class PanelQuestionBuilder {
   public build(): PanelQuestion {
     return {
       id: this._id,
+      image: this._image,
       text: this._text,
       user: this._user,
       date: this._date || new Date(),

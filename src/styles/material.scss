@@ -1,7 +1,7 @@
 @import "variables";
+@import "mixins";
 
 .mat-card {
-
   .mat-card-header {
     .mat-card-avatar {
       display: flex;
@@ -19,14 +19,39 @@
   }
 
   .mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
+    @include button-container();
+  }
+}
+
+.mat-dialog-container {
+  .mat-dialog-actions {
+    @include button-container();
+  }
+}
+
+.mat-button,
+.mat-raised-button {
+  @include text-ellipsis();
+}
+
+@media (max-width: 750px) {
+  .cdk-overlay-pane {
+    width: 100%;
   }
 }
 
 @media (max-width: 400px) {
-  .mat-button,
-  .mat-raised-button {
-    width: 100%;
+  .mat-card {
+    .mat-card-actions {
+      @include button-container-mobile();
+    }
+  }
+
+  .mat-dialog-container {
+    .mat-dialog-actions {
+      @include button-container-mobile();
+
+      padding-bottom: $gap-normal;
+    }
   }
 }

@@ -6,7 +6,6 @@ import { MainComponent } from './component/main/main.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { TitleBarComponent } from './component/title-bar/title-bar.component';
-import { CoreRoutingModule } from './core-routing.module';
 import { SVG_ICONS } from './model/constants';
 import { ChickenService } from './service/chicken.service';
 import { FamilyService } from './service/family.service';
@@ -19,7 +18,6 @@ import { UtilityService } from './service/utility.service';
 @NgModule({
   imports: [
     SharedModule,
-    CoreRoutingModule,
   ],
   declarations: [
     TitleBarComponent,

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { IconComponent } from './component/icon/icon.component';
+import { ImageUploadModalComponent } from './component/image-upload-modal/image-upload-modal.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,10 @@ import { IconComponent } from './component/icon/icon.component';
   ],
   declarations: [
     IconComponent,
+    ImageUploadModalComponent
+  ],
+  entryComponents: [
+    ImageUploadModalComponent
   ],
   exports: [
     CommonModule,

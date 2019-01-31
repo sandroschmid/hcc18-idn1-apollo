@@ -1,0 +1,70 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/mixins";
+
+.image-upload {
+  .mat-dialog-content {
+    $border-radius: 3px;
+
+    margin-bottom: $gap-normal;
+
+    .preview {
+      position: relative;
+
+      img {
+        max-width: 100%;
+        max-height: 350px;
+        border-radius: $border-radius;
+      }
+
+      .label {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $gap-small;
+        background-color: rgba(255, 255, 255, 0.75);
+        box-sizing: border-box;
+
+        .file-name {
+          @include text-ellipsis();
+          margin-right: $gap-normal;
+        }
+
+        .change-image {
+          text-transform: uppercase;
+          border-radius: 0 0 $border-radius $border-radius;
+        }
+      }
+
+      &:hover {
+        .change-image {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .no-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: $gap-large $gap-normal;
+      font-family: Roboto, sans-serif;
+      border: 1px dashed $grey-dark;
+      border-radius: $border-radius;
+      background-color: $grey-light;
+      text-align: center;
+
+      &:hover {
+        border-color: darken($grey-dark, 5%);
+        background-color: darken($grey-light, 5%);
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
