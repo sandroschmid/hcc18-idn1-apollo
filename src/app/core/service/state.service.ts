@@ -3,14 +3,17 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Chicken } from '../model/chicken';
 import { APP_NAME, RANDOMIZE_DATA_DELAY } from '../model/constants';
 import { HenHouse } from '../model/hen-house';
+import { HenHouseDoor } from '../model/hen-house-door';
+import { Icon } from '../model/icon';
+import { NavBarItem } from '../model/nav-bar-item';
 import { PanelQuestion, PanelQuestionBuilder } from '../model/panel-question';
 import { PanelResponse, PanelResponseBuilder } from '../model/panel-response';
-import { HenHouseDoor } from '../model/hen-house-door';
 
 @Injectable()
 export class StateService {
 
   private readonly _title = new BehaviorSubject<string>(APP_NAME);
+  private readonly _icon = new BehaviorSubject<Icon>(undefined);
 
   private readonly _panelQuestions = new BehaviorSubject<PanelQuestion[]>([
     new PanelQuestionBuilder().user('Max Mustermann')
@@ -72,12 +75,17 @@ export class StateService {
     setTimeout(this.updateRandomState, RANDOMIZE_DATA_DELAY);
   }
 
-  public setTitle(title: string | undefined): void {
-    this._title.next(title || APP_NAME);
+  public setNavItem(navBarItem: NavBarItem | undefined): void {
+    this._title.next(navBarItem.title || APP_NAME);
+    this._icon.next(navBarItem.icon);
   }
 
   public get title(): Observable<string> {
     return this._title;
+  }
+
+  public get icon(): Observable<Icon> {
+    return this._icon;
   }
 
   public get panelQuestions(): Observable<PanelQuestion[]> {

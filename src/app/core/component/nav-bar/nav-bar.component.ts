@@ -47,13 +47,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
     let found = false;
     for (const item of this.view.items) {
       if (url.startsWith(item.path)) {
-        this._state.setTitle(item.title);
+        this._state.setNavItem(item);
         found = true;
       }
     }
 
     if (!found) {
-      this._state.setTitle(undefined);
+      this._state.setNavItem(undefined);
     }
   }
 

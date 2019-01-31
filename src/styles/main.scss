@@ -16,7 +16,7 @@ body {
   display: block;
 
   &:not(:last-child) {
-    margin-bottom: $gap-large;
+    margin-bottom: $gap-normal;
   }
 }
 

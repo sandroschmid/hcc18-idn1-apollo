@@ -9,7 +9,7 @@
   width: 100%;
   max-width: 500px;
   height: $img-slider-height;
-  margin: $gap-large auto;
+  margin: $gap-large auto $gap-normal;
 
   img {
     position: absolute;
