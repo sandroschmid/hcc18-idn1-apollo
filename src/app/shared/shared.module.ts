@@ -10,6 +10,7 @@ import { IconComponent } from './component/icon/icon.component';
 import { ImageUploadModalComponent } from './component/image-upload-modal/image-upload-modal.component';
 import { ChartDirective } from './directive/chart.directive';
 import { SimpleDatePipe } from './pipe/simple-date.pipe';
+import { EggSizeDistributionComponent } from './component/egg-size-distribution/egg-size-distribution.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { SimpleDatePipe } from './pipe/simple-date.pipe';
     ImageUploadModalComponent,
     ChartComponent,
     ChartDirective,
-    SimpleDatePipe
+    SimpleDatePipe,
+    EggSizeDistributionComponent
   ],
   entryComponents: [
     ImageUploadModalComponent
@@ -44,7 +46,8 @@ import { SimpleDatePipe } from './pipe/simple-date.pipe';
     ChartsModule,
     IconComponent,
     ChartComponent,
-    SimpleDatePipe
+    SimpleDatePipe,
+    EggSizeDistributionComponent
   ]
 })
 export class SharedModule {

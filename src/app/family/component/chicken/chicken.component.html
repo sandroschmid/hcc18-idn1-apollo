@@ -28,6 +28,8 @@
       <app-chart [chart]="view.chart"></app-chart>
     </mat-card-content>
   </mat-card>
+
+  <app-egg-size-distribution *ngIf="view.chicken.eggsTotal > 0" class="margin-bottom"></app-egg-size-distribution>
 </ng-container>
 
 <ng-template #noChicken>
