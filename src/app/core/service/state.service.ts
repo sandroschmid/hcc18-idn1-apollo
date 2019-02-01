@@ -43,21 +43,27 @@ export class StateService {
       name: 'Lilli',
       birthDate: new Date('2018-09-20T00:00:00Z'),
       eggsTotal: 12,
-      eggsToday: 0
+      eggsTodayLarge: 0,
+      eggsTodayMedium: 1,
+      eggsTodaySmall: 0
     },
     {
       id: 2,
       name: 'Pippi',
       birthDate: new Date('2018-10-20T00:00:00Z'),
       eggsTotal: 0,
-      eggsToday: 0
+      eggsTodayLarge: 0,
+      eggsTodayMedium: 0,
+      eggsTodaySmall: 0
     },
     {
       id: 3,
       name: 'Lola',
       birthDate: new Date('2018-10-20T00:00:00Z'),
       eggsTotal: 5,
-      eggsToday: 0
+      eggsTodayLarge: 1,
+      eggsTodayMedium: 0,
+      eggsTodaySmall: 1
     }
   ]);
 
@@ -76,6 +82,8 @@ export class StateService {
       temperatureInside: true
     }
   });
+
+  private readonly _statsSelectedChickenTabIndex = new BehaviorSubject<number>(0);
 
   public constructor() {
     this.updateRandomState = this.updateRandomState.bind(this);
@@ -138,7 +146,7 @@ export class StateService {
 
   public createChicken(chickenBuilder: ChickenBuilder): Observable<Chicken> {
     const chicken = chickenBuilder.id(this.autoId(this._chickens.value)).build();
-    this._chickens.next([chicken, ...this._chickens.value]);
+    this._chickens.next([chicken, ...this._chickens.value].sort(Chicken.compare));
     return of(chicken);
   }
 
@@ -170,6 +178,14 @@ export class StateService {
     this._henHouse.value.door.isOpen = !this._henHouse.value.door.isOpen;
     this._henHouse.next(this._henHouse.value);
     return of();
+  }
+
+  public get statsSelectedChickenTabIndex(): Observable<number> {
+    return this._statsSelectedChickenTabIndex;
+  }
+
+  public setStatsSelectedChickenTabIndex(index: number): void {
+    this._statsSelectedChickenTabIndex.next(index);
   }
 
   private autoId(list: { id: number }[]): number {

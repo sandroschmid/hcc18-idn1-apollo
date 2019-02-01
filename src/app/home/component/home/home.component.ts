@@ -49,7 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this._chickenService.findAll()
       .pipe(takeUntil(this._ngDestroy))
-      .subscribe(chickens => this.view.eggsCollected = chickens.map(c => c.eggsToday).reduce((sum, eggs) => sum + eggs, 0));
+      .subscribe(chickens => this.view.eggsCollected = chickens
+        .map(c => c.eggsTodayLarge + c.eggsTodayMedium + c.eggsTodaySmall)
+        .reduce((sum, eggs) => sum + eggs, 0));
   }
 
   public ngOnDestroy(): void {

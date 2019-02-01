@@ -1,10 +1,10 @@
 <div class="egg-counter margin-bottom">
-  <button mat-icon-button [disabled]="view.largeCount === 0" (click)="decrease('l')">
+  <button mat-icon-button [disabled]="view.chicken.eggsTodayLarge === 0" (click)="decrease('l')">
     <mat-icon>remove</mat-icon>
   </button>
   <div class="counter-label large">
-    <img src="./assets/images/egg-count.svg" alt="Eier zählen">
-    <span class="mat-headline">{{ view.largeCount }}</span>
+    <img src="./assets/images/egg-count.svg" alt="Große Eier zählen">
+    <span class="mat-headline">{{ view.chicken.eggsTodayLarge }}</span>
   </div>
   <button mat-icon-button (click)="increase('l')">
     <mat-icon>add</mat-icon>
@@ -12,12 +12,12 @@
 </div>
 
 <div class="egg-counter margin-bottom">
-  <button mat-icon-button [disabled]="view.mediumCount === 0" (click)="decrease('m')">
+  <button mat-icon-button [disabled]="view.chicken.eggsTodayMedium === 0" (click)="decrease('m')">
     <mat-icon>remove</mat-icon>
   </button>
   <div class="counter-label medium">
-    <img src="./assets/images/egg-count.svg" alt="Eier zählen">
-    <span class="mat-headline">{{ view.mediumCount }}</span>
+    <img src="./assets/images/egg-count.svg" alt="Mittlere Eier zählen">
+    <span class="mat-headline">{{ view.chicken.eggsTodayMedium }}</span>
   </div>
   <button mat-icon-button (click)="increase('m')">
     <mat-icon>add</mat-icon>
@@ -25,12 +25,12 @@
 </div>
 
 <div class="egg-counter margin-bottom">
-  <button mat-icon-button [disabled]="view.smallCount === 0" (click)="decrease('s')">
+  <button mat-icon-button [disabled]="view.chicken.eggsTodaySmall === 0" (click)="decrease('s')">
     <mat-icon>remove</mat-icon>
   </button>
   <div class="counter-label small">
-    <img src="./assets/images/egg-count.svg" alt="Eier zählen">
-    <span class="mat-subheading-2">{{ view.smallCount }}</span>
+    <img src="./assets/images/egg-count.svg" alt="Kleine Eier zählen">
+    <span class="mat-subheading-2">{{ view.chicken.eggsTodaySmall }}</span>
   </div>
   <button mat-icon-button (click)="increase('s')">
     <mat-icon>add</mat-icon>

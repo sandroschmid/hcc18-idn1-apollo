@@ -11,17 +11,7 @@ import { take, takeUntil } from 'rxjs/operators';
 })
 export class EggsCounterComponent implements OnDestroy {
 
-  public readonly view: {
-    chicken: Chicken,
-    largeCount: number,
-    mediumCount: number,
-    smallCount: number,
-  } = {
-    chicken: undefined,
-    largeCount: 0,
-    mediumCount: 0,
-    smallCount: 0,
-  };
+  public readonly view: { chicken: Chicken } = { chicken: undefined };
 
   private readonly _ngDestroy = new Subject<void>();
 
@@ -38,17 +28,16 @@ export class EggsCounterComponent implements OnDestroy {
   }
 
   public increase(size: 'l' | 'm' | 's'): void {
-    this.view.chicken.eggsToday++;
     this.view.chicken.eggsTotal++;
     switch (size) {
       case 'l':
-        this.view.largeCount++;
+        this.view.chicken.eggsTodayLarge++;
         break;
       case 'm':
-        this.view.mediumCount++;
+        this.view.chicken.eggsTodayMedium++;
         break;
       case 's':
-        this.view.smallCount++;
+        this.view.chicken.eggsTodaySmall++;
         break;
     }
 
@@ -56,17 +45,16 @@ export class EggsCounterComponent implements OnDestroy {
   }
 
   public decrease(size: 'l' | 'm' | 's'): void {
-    this.view.chicken.eggsToday--;
     this.view.chicken.eggsTotal--;
     switch (size) {
       case 'l':
-        this.view.largeCount--;
+        this.view.chicken.eggsTodayLarge--;
         break;
       case 'm':
-        this.view.mediumCount--;
+        this.view.chicken.eggsTodayMedium--;
         break;
       case 's':
-        this.view.smallCount--;
+        this.view.chicken.eggsTodaySmall--;
         break;
     }
 

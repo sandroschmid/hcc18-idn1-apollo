@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod-server": "http-server -p 8080 -c-1 dist/hcc18-idn1-apollo"
+    "prod-server": "http-server -p 8080 -c-1 dist/hcc18-idn1-apollo",
+    "deploy": "ng build --prod && firebase deploy"
   },
   "private": true,
   "dependencies": {

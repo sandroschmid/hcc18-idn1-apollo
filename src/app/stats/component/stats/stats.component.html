@@ -1,6 +1,12 @@
 <mat-card class="margin-bottom">
+  <mat-card-header>
+    <app-icon mat-card-avatar icon="egg"></app-icon>
+    <mat-card-title>Eier einsammeln</mat-card-title>
+    <mat-card-subtitle>Wie viele Eier hast du heute schon von welcher Henne gesammelt?</mat-card-subtitle>
+  </mat-card-header>
   <mat-card-content>
-    <mat-tab-group>
+    <mat-tab-group [selectedIndex]="view.selectedChickenTabIndex"
+                   (selectedIndexChange)="onSelectedChickenTabIndexChange($event)">
       <mat-tab *ngFor="let chicken of view.chickens" [label]="chicken.name">
         <app-eggs-counter [chicken]="chicken"></app-eggs-counter>
       </mat-tab>
@@ -20,10 +26,10 @@
           Eiern!</span>
         <span>
         Heute hat sie
-        <ng-container [ngSwitch]="view.eggsKing.eggsToday">
+        <ng-container [ngSwitch]="view.eggsKing.eggsTodayMedium">
           <ng-container *ngSwitchCase="0">noch keine Eier</ng-container>
           <ng-container *ngSwitchCase="1">erst ein Ei</ng-container>
-          <ng-container *ngSwitchDefault>{{ view.eggsKing.eggsToday }} Eier</ng-container>
+          <ng-container *ngSwitchDefault>{{ view.eggsKing.eggsTodayMedium }} Eier</ng-container>
         </ng-container>
         gelegt.
       </span>
