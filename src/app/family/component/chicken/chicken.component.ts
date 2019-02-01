@@ -21,8 +21,8 @@ export class ChickenComponent implements OnInit, OnDestroy {
       continuousText: 'in den letzten sieben Tagen'
     },
     {
-      label: '4 Wochen',
-      continuousText: 'in den letzten vier Wochen'
+      label: '8 Wochen',
+      continuousText: 'in den letzten acht Wochen'
     },
     {
       label: '6 Monate',
@@ -127,8 +127,8 @@ export class ChickenComponent implements OnInit, OnDestroy {
         result.data.unshift(eggs);
         this.view.eggSum += eggs;
       }
-    } else if (this.view.selectedRange.label === '4 Wochen') {
-      for (let i = 0; i < 4; i++) {
+    } else if (this.view.selectedRange.label === '8 Wochen') {
+      for (let i = 0; i < 8; i++) {
         result.labels.unshift(`KW ${moment().subtract(i, 'week').week()}`);
         const eggs = Math.round(Math.random() * (12 - 3) + 3);
         result.data.unshift(eggs);

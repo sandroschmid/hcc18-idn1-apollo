@@ -11,6 +11,7 @@ import { PanelQuestion, PanelQuestionBuilder } from '../../../core/model/panel-q
 import { PanelService } from '../../../core/service/panel.service';
 import { UtilityService } from '../../../core/service/utility.service';
 import { ImageUploadModalComponent } from '../../../shared/component/image-upload-modal/image-upload-modal.component';
+import { ImageUploadModalResult } from '../../../core/model/image-upload-modal-result';
 
 @Component({
   selector: 'app-panel',
@@ -62,10 +63,15 @@ export class PanelComponent implements OnInit, OnDestroy {
     const dialogRef = this._dialog.open(ImageUploadModalComponent, { data: dialogData });
     dialogRef.beforeClosed()
       .pipe(take(1), takeUntil(this._ngDestroy))
-      .subscribe(image => {
-        if (image && image instanceof Image) {
-          this.view.image = image;
-          this._utility.showMessage('Bild hochgeladen');
+      .subscribe(result => {
+        if (result && result instanceof ImageUploadModalResult) {
+          if (result.removed) {
+            this.view.image = undefined;
+            this._utility.showMessage('Bild entfernt');
+          } else {
+            this.view.image = result.image;
+            this._utility.showMessage('Bild hochgeladen');
+          }
         }
       });
   }
@@ -75,12 +81,14 @@ export class PanelComponent implements OnInit, OnDestroy {
       .image(this.view.image)
       .text(this.view.questionForm.controls.question.value)
       .user('Test User');
+
     this._panelService.sendQuestion(question)
       .pipe(take(1))
       .subscribe(
         _ => {
           this.view.questionForm.reset();
           this.questionFormExpansionPanel.close();
+          this.view.image = undefined;
         },
         _ => this._utility.showMessage('Beitrag konnte nicht gespeichert werden')
       );

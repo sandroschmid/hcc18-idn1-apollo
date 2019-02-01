@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Image } from '../../../core/model/image';
 import { ImageUploadModalData } from '../../../core/model/image-upload-modal-data';
 import { UtilityService } from '../../../core/service/utility.service';
+import { ImageUploadModalResult } from '../../../core/model/image-upload-modal-result';
 
 @Component({
   selector: 'app-image-upload-modal',
@@ -15,9 +16,11 @@ export class ImageUploadModalComponent implements OnInit {
   public readonly view: {
     file: File,
     imageUri: SafeUrl,
+    removed: boolean
   } = {
     file: undefined,
-    imageUri: undefined
+    imageUri: undefined,
+    removed: false
   };
 
   public constructor(private readonly _dialogRef: MatDialogRef<ImageUploadModalComponent>,
@@ -41,6 +44,7 @@ export class ImageUploadModalComponent implements OnInit {
 
     this.view.file = files[0];
     const fileType = this.view.file.type;
+    this.view.removed = false;
     if (fileType !== 'image/jpeg' && fileType !== 'image/png' && fileType !== 'image/gif') {
       this._utility.showMessage('Only "jpeg", "png" and "gif" images are allowed');
       return;
@@ -50,8 +54,14 @@ export class ImageUploadModalComponent implements OnInit {
     }
   }
 
-  public async onDone(): Promise<void> {
-    this._dialogRef.close(new Image(this.view.file, this.view.imageUri));
+  public remove(): void {
+    this.view.removed = true;
+    this.view.file = undefined;
+    this.view.imageUri = undefined;
   }
 
+  public async onDone(): Promise<void> {
+    const image = this.view.file && this.view.imageUri ? new Image(this.view.file, this.view.imageUri) : undefined;
+    this._dialogRef.close(new ImageUploadModalResult(image, this.view.removed));
+  }
 }

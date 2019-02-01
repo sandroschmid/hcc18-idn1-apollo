@@ -13,31 +13,28 @@
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <div>
-          <mat-checkbox formControlName="automatismActive" [value]="true">Türautomatik aktiv</mat-checkbox>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-placeholder>Öffnen</mat-placeholder>
-            <mat-select formControlName="open">
-              <mat-option *ngFor="let option of view.doorFormOpenOptions" [value]="option">{{ option }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-placeholder>Close</mat-placeholder>
-            <mat-select formControlName="close">
-              <mat-option *ngFor="let option of view.doorFormCloseOptions" [value]="option">{{ option }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+        <mat-checkbox class="outline" formControlName="automatismActive"
+                      [value]="view.doorForm.controls.automatismActive.value">
+          Türautomatik ist {{ view.doorForm.controls.automatismActive.value ? 'aktiv' : 'deaktiviert' }}
+        </mat-checkbox>
+        <mat-form-field appearance="outline">
+          <mat-label>Türe automatisch öffnen</mat-label>
+          <mat-select formControlName="open" [value]="view.doorForm.controls.open.value">
+            <mat-option *ngFor="let option of view.doorFormOpenOptions" [value]="option">{{ option }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Türe automatisch schließen</mat-label>
+          <mat-select formControlName="close" [value]="view.doorForm.controls.close.value">
+            <mat-option *ngFor="let option of view.doorFormCloseOptions" [value]="option">{{ option }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="toggleDoor()">
-          <span *ngIf="view.henHouse.door.isOpen; else openDoorLabel">Türe schließen</span>
+          <span *ngIf="view.henHouse.door.isOpen; else openDoorLabel">Türe jetzt schließen</span>
           <ng-template #openDoorLabel>
-            <span>Türe öffnen</span>
+            <span>Türe jetzt öffnen</span>
           </ng-template>
         </button>
       </mat-card-actions>

@@ -1,5 +1,5 @@
 import { HenHouseDoor } from './hen-house-door';
-import { HenHouseSensors } from './HenHouseSensors';
+import { HenHouseSensors } from './hen-house-sensors';
 
 export class HenHouse {
   public door: HenHouseDoor;

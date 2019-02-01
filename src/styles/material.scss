@@ -34,6 +34,19 @@
   @include text-ellipsis();
 }
 
+.mat-form-field {
+  width: 100%;
+  display: block;
+}
+
+.mat-checkbox {
+  &.outline {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    padding: $gap-small;
+  }
+}
+
 @media (max-width: 400px) {
   .mat-card {
     .mat-card-actions {

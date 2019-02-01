@@ -15,6 +15,11 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close type="button">Abbrechen</button>
-    <button mat-raised-button color="primary" type="button" [disabled]="!view.imageUri" (click)="onDone()">OK</button>
+    <button mat-button *ngIf="view.file && view.imageUri" type="button" (click)="remove()">Entfernen</button>
+    <button mat-raised-button color="primary" type="button"
+            [disabled]="!view.imageUri && !view.removed"
+            (click)="onDone()">
+      OK
+    </button>
   </mat-dialog-actions>
 </form>

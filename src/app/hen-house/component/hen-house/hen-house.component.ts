@@ -32,14 +32,20 @@ export class HenHouseComponent implements OnInit, OnDestroy {
 
   public constructor(private readonly _formBuilder: FormBuilder,
                      private readonly _henHouseService: HenHouseService) {
+    this.onDoorAutomatismActiveChange = this.onDoorAutomatismActiveChange.bind(this);
   }
 
   public ngOnInit(): void {
     this.view.doorForm = this._formBuilder.group({
-      'automatismActive': false,
-      'open': [undefined, Validators.required],
-      'close': [undefined, Validators.required]
+      'automatismActive': true,
+      'open': [this.view.doorFormOpenOptions[2], Validators.required],
+      'close': [this.view.doorFormCloseOptions[2], Validators.required]
     });
+
+    this.onDoorAutomatismActiveChange();
+    this.view.doorForm.controls.automatismActive.valueChanges
+      .pipe(takeUntil(this._ngDestroy))
+      .subscribe(this.onDoorAutomatismActiveChange);
 
     this._henHouseService.getHenHouse()
       .pipe(takeUntil(this._ngDestroy))
@@ -54,7 +60,12 @@ export class HenHouseComponent implements OnInit, OnDestroy {
 
     this.view.doorForm.valueChanges
       .pipe(takeUntil(this._ngDestroy))
-      .subscribe(settings => this._henHouseService.updateDoorSettings(settings));
+      .subscribe(settings => this._henHouseService.updateDoorSettings({
+        isOpen: this.view.henHouse.door.isOpen,
+        automatismActive: settings.automatismActive,
+        open: settings.open || this.view.henHouse.door.open,
+        close: settings.close || this.view.henHouse.door.close
+      }));
   }
 
   public ngOnDestroy(): void {
@@ -63,6 +74,16 @@ export class HenHouseComponent implements OnInit, OnDestroy {
 
   public toggleDoor(): void {
     this._henHouseService.toggleDoor();
+  }
+
+  private onDoorAutomatismActiveChange(active: boolean = this.view.doorForm.controls.automatismActive.value): void {
+    if (active) {
+      this.view.doorForm.controls.open.enable();
+      this.view.doorForm.controls.close.enable();
+    } else {
+      this.view.doorForm.controls.open.disable();
+      this.view.doorForm.controls.close.disable();
+    }
   }
 
 }
