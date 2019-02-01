@@ -67,6 +67,7 @@ export class ChartComponent {
 
     switch (this.view.chart.type) {
       case 'radar':
+      case 'doughnut':
         this.view.options.scale = ticks;
         break;
       case 'bar':
